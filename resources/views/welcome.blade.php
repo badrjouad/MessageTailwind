@@ -4,8 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Puppies Message</title>
-       
+        <link rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+        crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+       
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,94 +20,53 @@
             <script src="https://cdn.tiny.cloud/1/rfh2jyq97o6vqydqz05q4siqe8rwk4bj8o5yrek0blkmmgvq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
         </script>
         
-    <script>
-      tinymce.init({
-        selector: '#mytextarea',
-        branding:false
-      });
-      
-tinymce.init({
-  selector: 'textarea#default'
-});
-
-function myFunction() {
-  var x = document.getElementById("form");
-  
-  
-    x.style.display = "block";
-    var emailUser1=document.getElementById("email1").innerText;
-            var emailUser2=document.getElementById("email2").innerText;
-           
-            var user=document.getElementById("user");
-           
-            user.innerHTML="Reply to"+" "+emailUser1;
- 
-}
-function myFunctionHide() {
-  var x = document.getElementById("form");
-  
-  
-    x.style.display = "none";
-
-}
-
-function validateForm()
-{
-  
-    let x = document.forms["form"]["subject"].value;
-    let y=document.forms["form"]["message"].value;
-  if (x == "") {
-      alert("error");
-    x.style.border="red";
-    return false;
-  }
-  if (y== "") {
-      alert("error");
-    y.style.border="red";
-    return false;
-  }
-
-}
-
-
-  
- 
-
-</script>
 <style>
    
 </style>
   
     </head>
     <body class="antialiased">
-       <center >
-        <form  {{-- onsubmit="return validateForm(e)" --}} id="form" name="form"  style="width:50%;margin:3em;display:none">
-            <h1 id="user"class="text-lg">Reply To <span id="username"></span></h1>
-            <div>
-            
-                <input  name="subject" id="subject"   type='text' placeholder="Subject" class="w-full mt-2 mb-6 px-6 py-3 border rounded-lg text-lg text-gray-700 focus:outline-none" />
-                            </div>
-            <textarea  name="message" id="mytextarea">Message
-            </textarea>
-            
-            
-            <div style="border: 1px solid #ccc" class="buttons">
-            <button onclick="myFunctionHide()" style="margin:1em" type="button" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-gray-600 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-800">Cancel</button>
-            <button type="button" id="submit" value="submit"
 
 
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 
-            focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5
-             text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 
-             dark:focus:ring-blue-800">Send message</button>
-            </div>
-          </form>
-
-          
-
-          
       
-</center> 
+     
+      
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+            <h5 id="user"class="modal-title">Reply To <span id="username"></span></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="needs-validation" novalidate id="#signup-form">
+             
+                <div class="form-group">
+                  <label for="recipient-name" class="col-form-label" required>Subject :</label>
+                  <input type="text" class="form-control" id="recipient-name">
+                  <div id="error" class="invalid-feedback" >
+                    Please choose a subject of message.
+                  </div>
+                  <div id="success" class="valid-feedback">
+                      Great
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="col-form-label">Message:</label>
+                  <textarea class="form-control" id="mytextarea" required></textarea>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id="submit" type="button" class="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+       
 
 
         
@@ -148,7 +112,7 @@ function validateForm()
     <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">{{$u->email}}</td>
     <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$u->password}}</td>
     <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-    <button onclick="myFunction()" id="hide"href="#" data-name="{{$u->name}}" class="text-blue-600 dark:text-blue-500 hover:underline">Reply</button>
+    <button onclick="displayFunction()" id="hide"href="#" data-name="{{$u->name}}" class="text-blue-600 dark:text-blue-500 hover:underline"  data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Reply</button>
     </td>
     </tr>
     @endforeach
@@ -162,27 +126,70 @@ function validateForm()
     </div>
     </div>
     </div>
+    
     <script>
     $(document).ready(function(){
+
+
       $("#table #hide").on("click", function(){
         $("#username").text($(this).attr("data-name"));
       })
 
-
-
       $("#submit").on("click",function(){
-        
-        let subject = $("#subject").val();
+       
+      
+        let subject = $("#recipient-name").val();
         let msg = $("#mytextarea").val();
-        if(subject == "" || msg == ""){
-          $("#subject").css({"border-color": "red", })
+        if(subject == "" ){
+          $("#recipient-name").css({"border-color": "red"});
+          $("#error").css({"display": "block"});
+          $("#success").css({"display": "none"});
+      
             
-        }else{
-          alert("fields should not be empty");
+        }
+        
+        else{
+          $("#recipient-name").css({"border-color": "#198754"});
+          $("#success").css({"display": "block"});
+          $("#error").css({"display": "none"});
         }
       })
+    
     })
+    tinymce.init({
+        selector: '#mytextarea',
+        branding:false
+      });
+      
+function displayFunction() {
+  var x = document.getElementById("form");
+  
+  
+    x.style.display = "block";
+    var emailUser1=document.getElementById("email1").innerText;
+            var emailUser2=document.getElementById("email2").innerText;
+           
+            var user=document.getElementById("user");
+           
+            user.innerHTML="Reply to"+" "+emailUser1;
+ 
+}
+function displayFunctionHide() {
+  var x = document.getElementById("form");
+  
+  
+    x.style.display = "none";
+
+}
+
+
+
+
     
     </script>
+   
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
