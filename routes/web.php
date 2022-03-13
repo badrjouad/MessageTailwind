@@ -1,7 +1,9 @@
 <?php
 
+
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +15,4 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-   $object = ['jhone@gmail.com','sohaib@gmail.com','geek@gmail.com'];
-   return view('welcome', ['object' => $object]);
-});
+Route::get('/','App\Http\Controllers\DataController@index');

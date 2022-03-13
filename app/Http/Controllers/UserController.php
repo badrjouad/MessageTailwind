@@ -21,4 +21,16 @@ class UserController extends Controller
         return view("welcom")->with("object",$object);
 
     }
+
+    public function getData()
+    {
+        $object = ['email'=>'jhone@gmail.com',
+        'subject'=>'subect1',
+        'message'=>'message1'];
+
+        return view('welcome',[
+            'object'=>$object,
+        ]);
+
+    }
 }

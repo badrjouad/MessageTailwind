@@ -14,3 +14,6 @@
   .btn-blue:hover {
     @apply bg-blue-700;
   }
+  #subject{
+  border: 1px solid #ccc;
+  border-radius: 0em!important;}
